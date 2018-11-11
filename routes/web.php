@@ -16,16 +16,11 @@ Route::get('/','HomeController@index');
 Route::group(['prefix'=>'student'],function() {
     Route::get('{student_no}', [
         'as'=>'student',
-        'uses'=>function ($student_no){
-            return "學號" . $student_no;
-        }
+        'uses'=>'StudentController@getStudentData'
     ]);
 
     Route::get('{student_no}/score/{subject?}', [
         'as'=>'student.score',
-        'uses'=>function ($student_no){
-            return '學號:' . $student_no . '的' . '所有科目'  &subject.'成績' ;
-    }
-
-])->where(['subject' => '(chinese| english| math']);
+        'uses'=>'StudentController@getStudentScore'
+        ])->where(['subject' => '(chinese| english| math)']);
 });
